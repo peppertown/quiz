@@ -2,7 +2,6 @@ import express from "express";
 const router = express.Router();
 import { addWord, getWords } from "../controllers/word.controller.js";
 /* 구현 기능 목록
-1. 단어 조회
 3. 단어 수정
 4. 단어 삭제
 5. 예문 생성 */
