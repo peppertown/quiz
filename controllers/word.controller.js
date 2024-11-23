@@ -31,3 +31,19 @@ export const getWords = async (req, res) => {
     res.json(err);
   }
 };
+
+// 단어 수정
+export const modifyWord = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { word, mean } = req.body;
+
+    const sql = `UPDATE words SET word=?, mean=? WHERE id=?`;
+    const params = [word, mean, id];
+
+    const [result] = await db.execute(sql, params);
+    res.json(result);
+  } catch (err) {
+    res.json(err);
+  }
+};
