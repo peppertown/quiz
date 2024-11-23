@@ -16,3 +16,18 @@ export const addWord = async (req, res) => {
     res.json(err);
   }
 };
+
+// 단어 일자별 조회
+export const getWords = async (req, res) => {
+  try {
+    const { year, month, day } = req.query;
+
+    const date = `${year}-${month}-${day}`;
+    const sql = `SELECT id, word, mean FROM words WHERE created_at = "${date}"`;
+
+    const [words] = await db.execute(sql);
+    res.json({ words, date });
+  } catch (err) {
+    res.json(err);
+  }
+};
