@@ -34,7 +34,6 @@ export const generateExampleSentence = async (words) => {
       ],
       temperature: 0.7,
     });
-    console.log(response);
     sentences.push({
       result: response.choices[0].message.content,
     });
