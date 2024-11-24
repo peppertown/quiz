@@ -1,12 +1,14 @@
 import express from "express";
 const router = express.Router();
-import { generateSenteces } from "../controllers/sentence.controller.js";
-
-/* 구현 기능 목록
-2. 예문 조회
-*/
+import {
+  generateSenteces,
+  getSentences,
+} from "../controllers/sentence.controller.js";
 
 // 1. 예문 생성
 router.post("/", generateSenteces);
+
+// 2. 예문 조회
+router.get("/", getSentences);
 
 export default router;
