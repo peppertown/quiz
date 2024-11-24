@@ -6,8 +6,6 @@ import {
   modifyWord,
   deleteWord,
 } from "../controllers/word.controller.js";
-/* 구현 기능 목록
-5. 예문 생성 */
 
 // 단어 등록
 router.post("/", addWord);
