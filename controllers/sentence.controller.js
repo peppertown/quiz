@@ -34,3 +34,13 @@ export const generateSenteces = async (req, res) => {
     res.json(err);
   }
 };
+
+// 예문 조회
+export const getSentences = async (req, res) => {
+  const { year, month, day } = req.query;
+  const date = `${year}-${month}-${day}`;
+  const sql = `SELECT word, sentence, mean FROM sentence WHERE date = "${date}"`;
+
+  const [words] = await db.execute(sql);
+  res.json(words);
+};
