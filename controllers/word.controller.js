@@ -47,3 +47,15 @@ export const modifyWord = async (req, res) => {
     res.json(err);
   }
 };
+
+// 단어 삭제
+export const deleteWord = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const sql = `DELETE FROM words WHERE id = ${id}`;
+    await db.execute(sql);
+    res.json({ success: true });
+  } catch (err) {
+    res.json(err);
+  }
+};
