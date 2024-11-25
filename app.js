@@ -3,12 +3,14 @@ import "dotenv/config.js";
 
 import wordRouter from "./routes/word.routes.js";
 import sentenceRouter from "./routes/sentence.routes.js";
+import userRouter from "./routes/user.routes.js";
 
 const app = express();
 app.use(express.json());
 
 app.use("/word", wordRouter);
 app.use("/sentence", sentenceRouter);
+app.user("/user", userRouter);
 
 const PORT_NUMBER = process.env.PORT_NUMBER;
 app.listen(PORT_NUMBER, () => {
