@@ -10,7 +10,7 @@ app.use(express.json());
 
 app.use("/word", wordRouter);
 app.use("/sentence", sentenceRouter);
-app.user("/user", userRouter);
+app.use("/user", userRouter);
 
 const PORT_NUMBER = process.env.PORT_NUMBER;
 app.listen(PORT_NUMBER, () => {
