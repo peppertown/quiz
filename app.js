@@ -1,6 +1,6 @@
 import express from "express";
 import "dotenv/config.js";
-
+import cors from "cors";
 import wordRouter from "./routes/word.routes.js";
 import sentenceRouter from "./routes/sentence.routes.js";
 import userRouter from "./routes/user.routes.js";
@@ -11,6 +11,7 @@ app.use(express.json());
 app.use("/word", wordRouter);
 app.use("/sentence", sentenceRouter);
 app.use("/user", userRouter);
+app.use(cors());
 
 const PORT_NUMBER = process.env.PORT_NUMBER;
 app.listen(PORT_NUMBER, () => {
