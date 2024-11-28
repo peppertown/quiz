@@ -70,3 +70,11 @@ export const deleteWord = async (req, res) => {
     res.json(err);
   }
 };
+
+// 단어가 등록된 일 조회
+export const getRegisteredDate = async (req, res) => {
+  const sql = `SELECT date, word_count FROM registered_date`;
+  const [rows] = await db.execute(sql);
+  const dates = rows.map((data) => data.date);
+  res.json(dates);
+};
