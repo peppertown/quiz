@@ -5,6 +5,7 @@ import {
   getWords,
   modifyWord,
   deleteWord,
+  getRegisteredDate,
 } from "../controllers/word.controller.js";
 
 // 단어 등록
@@ -18,5 +19,8 @@ router.put("/:id", modifyWord);
 
 // 단어 삭제
 router.delete("/:id", deleteWord);
+
+// 단어가 등록된 일 확인
+router.get("/registered", getRegisteredDate);
 
 export default router;
