@@ -3,12 +3,18 @@ import db from "../server.js";
 // 단어 등록
 export const addWord = async (req, res) => {
   try {
+    const { date } = req.query;
     const words = req.body;
-    const sql = `INSERT INTO words (word, mean) VALUES(?,?)`;
+    let sql = `INSERT INTO words (word, mean) VALUES(?,?)`;
     for (let word of words) {
       const values = [word.word, word.mean];
       await db.execute(sql, values);
     }
+
+    await db.execute(`INSERT INTO registered_date (date, word_count)
+    VALUES ("${date}", ${words.length})
+    ON DUPLICATE KEY UPDATE word_count = word_count + ${words.length}`);
+
     res
       .status(200)
       .json({ success: true, message: "단어 등록이 완료됐습니다." });
