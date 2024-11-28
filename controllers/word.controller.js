@@ -56,9 +56,15 @@ export const modifyWord = async (req, res) => {
 // 단어 삭제
 export const deleteWord = async (req, res) => {
   try {
+    const { date } = req.query;
     const { id } = req.params;
-    const sql = `DELETE FROM words WHERE id = ${id}`;
+    let sql = `DELETE FROM words WHERE id = ${id}`;
     await db.execute(sql);
+
+    sql = `UPDATE registered_date SET word_count = word_count - 1
+    WHERE date = "${date}"`;
+    await db.execute(sql);
+
     res.json({ success: true });
   } catch (err) {
     res.json(err);
