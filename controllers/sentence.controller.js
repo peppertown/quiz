@@ -8,6 +8,10 @@ export const generateSenteces = async (req, res) => {
     let { words, date } = req.body;
     // 예문 생성 여부에 따라 단어 목록 수정
     words = words.filter((word) => !word.isGenerated);
+
+    if (!words.length) {
+      return res.json({ message: "예문 생성이 완료된 단어들입니다." });
+    }
     // 예문 생성
     const examples = await generateExampleSentence(words);
     /* 형식
