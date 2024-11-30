@@ -1,5 +1,6 @@
 import db from "../server.js";
 
+// 단어장 조회
 export const getNote = async (req, res) => {
   let sql = `SELECT date FROM registered_date`;
   const [days] = await db.execute(sql);
