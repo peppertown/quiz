@@ -5,7 +5,9 @@ import { generateExampleSentence } from "../utils/generateSentence.js";
 export const generateSenteces = async (req, res) => {
   try {
     // 일자별 단어 조회의 응답 데이터를 body로 전달받음
-    const { words, date } = req.body;
+    let { words, date } = req.body;
+    // 예문 생성 여부에 따라 단어 목록 수정
+    words = words.filter((word) => !word.isGenerated);
     // 예문 생성
     const examples = await generateExampleSentence(words);
     /* 형식
@@ -29,6 +31,11 @@ export const generateSenteces = async (req, res) => {
       const values = [word, example, meaning, date];
       await db.execute(sql, values);
     }
+
+    for (let word of words) {
+      await db.execute(`UPDATE words SET isGenerated = 1 WHERE id=${word.id}`);
+    }
+
     res.json({ success: true });
   } catch (err) {
     res.json(err);
