@@ -4,6 +4,7 @@ import cors from "cors";
 import wordRouter from "./routes/word.routes.js";
 import sentenceRouter from "./routes/sentence.routes.js";
 import userRouter from "./routes/user.routes.js";
+import noteRouter from "./routes/note.routes.js";
 
 const app = express();
 app.use(cors());
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use("/word", wordRouter);
 app.use("/sentence", sentenceRouter);
 app.use("/user", userRouter);
+app.use("/note", noteRouter);
 
 const PORT_NUMBER = process.env.PORT_NUMBER;
 app.listen(PORT_NUMBER, () => {
