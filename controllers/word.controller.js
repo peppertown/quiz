@@ -28,7 +28,7 @@ export const getWords = async (req, res) => {
   try {
     const { date } = req.query;
 
-    const sql = `SELECT id, word, mean FROM words WHERE created_at = "${date}"`;
+    const sql = `SELECT id, word, mean, isGenerated FROM words WHERE created_at = "${date}"`;
 
     const [words] = await db.execute(sql);
     res.json({ words, date });
