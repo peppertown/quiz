@@ -39,7 +39,6 @@ export const logIn = async (req, res) => {
 
     let sql = `SELECT * FROM users WHERE user_id=?`;
     let [user] = await db.execute(sql, [userId]);
-    console.log(user);
     if (!user.length) return res.json("존재하지 않는 ID 입니다");
     user = user[0];
     const isMatch = await bcrypt.compare(password, user.password);
