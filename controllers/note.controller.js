@@ -19,5 +19,5 @@ export const getWordSentence = async (req, res) => {
   const { word } = req.params;
   const sql = `SELECT sentence, mean FROM sentence WHERE word="${word}"`;
   const [sentence] = await db.execute(sql);
-  res.json(sentence);
+  res.json({ word, sentence });
 };
