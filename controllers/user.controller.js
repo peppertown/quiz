@@ -1,5 +1,6 @@
 import db from "../server.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export const join = async (req, res) => {
   const { userId, password, nickname } = req.body;
@@ -32,16 +33,31 @@ export const join = async (req, res) => {
 
 export const logIn = async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const [result] = await db.execute("SELECT * FROM users WHERE email = ?", [
-      email,
-    ]);
+    const { userId, password } = req.body;
+    if (!userId) return res.json("아이디를 입력해주세요");
+    if (!password) return res.json("비밀번호를 입력해주세요");
 
-    if (result.length && result[0].password == password) {
-      res.json({ message: `${result[0].email}님 환영합니다.` });
-    } else {
-      res.json({ message: "등록되지 않은 계정입니다." });
-    }
+    let sql = `SELECT * FROM users WHERE user_id=?`;
+    let [user] = await db.execute(sql, [userId]);
+    console.log(user);
+    if (!user.length) return res.json("존재하지 않는 ID 입니다");
+    user = user[0];
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) return res.json("비밀번호가 일치하지 않습니다.");
+
+    const token = jwt.sign(
+      { id: user.id, user_id: user.user_id, nickname: user.nickname },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1h",
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "로그인 성공",
+      token,
+    });
   } catch (err) {
     res.json(err);
   }
