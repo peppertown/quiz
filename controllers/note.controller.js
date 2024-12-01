@@ -8,7 +8,10 @@ export const getNote = async (req, res) => {
 
     const datas = [];
     for (let day of days) {
-      sql = `SELECT id, word, mean FROM words WHERE created_at = "${day.date}"`;
+      sql = `SELECT w.id, w.word, w.mean, 
+  CASE WHEN s.id IS NOT NULL THEN true ELSE false END AS scrapped
+  FROM words w LEFT JOIN scraps s ON w.id = s.word_id 
+  WHERE w.created_at = "${day.date}"`;
       const [words] = await db.execute(sql);
       datas.push({ date: day.date, words });
     }
