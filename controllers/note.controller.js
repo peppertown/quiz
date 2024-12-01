@@ -8,7 +8,7 @@ export const getNote = async (req, res) => {
 
     const datas = [];
     for (let day of days) {
-      sql = `SELECT word, mean FROM words WHERE created_at = "${day.date}"`;
+      sql = `SELECT id, word, mean FROM words WHERE created_at = "${day.date}"`;
       const [words] = await db.execute(sql);
       datas.push({ date: day.date, words });
     }
