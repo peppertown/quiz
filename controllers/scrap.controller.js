@@ -19,3 +19,10 @@ export const handleScraps = async (req, res) => {
     res.json(err);
   }
 };
+
+// 스크랩 목록 조회
+export const getScraps = async (req, res) => {
+  const sql = `SELECT w.word, w.mean FROM words w JOIN scraps s WHERE s.word_id = w.id;`;
+  const [scraps] = await db.execute(sql);
+  res.json(scraps);
+};
