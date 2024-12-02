@@ -1,6 +1,6 @@
 import db from "../server.js";
 
-// 퀴즈 리스트 조회
+// 퀴즈 리스트 생성
 export const getQuizzes = async (req, res) => {
   try {
     let sql = `SELECT word,mean FROM words ORDER BY RAND() LIMIT 5`;
