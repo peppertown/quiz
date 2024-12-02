@@ -30,3 +30,13 @@ export const getScraps = async (req, res) => {
     res.json(err);
   }
 };
+
+// 스크랩 단어 제거
+export const deleteScrap = async (req, res) => {
+  const { id } = req.params;
+  const sql = `DELETE FROM scraps WHERE word_id = ${id}`;
+  const [result] = await db.execute(sql);
+  if (!result.affectedRows) return res.json("잘못된 요청");
+
+  res.json({ success: true });
+};
