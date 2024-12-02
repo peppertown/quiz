@@ -6,7 +6,7 @@ import {
 } from "../controllers/quiz.controller.js";
 
 // 퀴즈 리스트 생성
-router.get("/", getQuizzes);
+router.get("/all", getQuizzes);
 
 // 퀴즈 피드백
 router.post("/", handleWrongWords);
