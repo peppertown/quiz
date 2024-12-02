@@ -34,3 +34,17 @@ export const handleWrongWords = async (req, res) => {
     res.json(err);
   }
 };
+
+// 해당 날짜 퀴즈 리스트 생성 (예문 퀴즈만 생성)
+export const getDateQuiz = async (req, res) => {
+  try {
+    const { date } = req.query;
+    const sql = `SELECT w.id, w.word, w.mean, s.sentence, s.mean AS meaning FROM words w 
+  JOIN sentence s ON w.word = s.word WHERE w.created_at = "${date}" ORDER BY RAND()`;
+
+    const [result] = await db.execute(sql);
+    res.json(result);
+  } catch (err) {
+    res.json(err);
+  }
+};
