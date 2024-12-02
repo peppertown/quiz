@@ -7,6 +7,7 @@ import userRouter from "./routes/user.routes.js";
 import noteRouter from "./routes/note.routes.js";
 import mypageRouter from "./routes/mypage.routes.js";
 import scrapRouter from "./routes/scrap.routes.js";
+import quizRouter from "./routes/quiz.routes.js";
 
 const app = express();
 app.use(cors());
@@ -18,6 +19,7 @@ app.use("/user", userRouter);
 app.use("/note", noteRouter);
 app.use("/mypage", mypageRouter);
 app.use("/scrap", scrapRouter);
+app.use("/quiz", quizRouter);
 
 const PORT_NUMBER = process.env.PORT_NUMBER;
 app.listen(PORT_NUMBER, () => {
