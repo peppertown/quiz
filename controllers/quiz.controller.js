@@ -6,7 +6,7 @@ export const getAllQuizzes = async (req, res) => {
     let sql = `SELECT id, word,mean FROM words ORDER BY RAND() LIMIT 5`;
     const [wordsForQuiz] = await db.execute(sql);
 
-    sql = `SELECT w.id, w.word, s.sentence, s.mean FROM words w JOIN sentence s ON w.word = s.word ORDER BY RAND() LIMIT 5`;
+    sql = `SELECT w.id, w.word, w.mean AS word_mean, s.sentence, s.mean FROM words w JOIN sentence s ON w.word = s.word ORDER BY RAND() LIMIT 5`;
     const [sentencesForQuiz] = await db.execute(sql);
 
     const quizzes = {
