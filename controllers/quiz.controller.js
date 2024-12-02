@@ -18,3 +18,19 @@ export const getQuizzes = async (req, res) => {
     res.json(err);
   }
 };
+
+// 퀴즈 피드백
+export const handleWrongWords = async (req, res) => {
+  try {
+    const data = req.body;
+    const values = data.map((v) => [v.id, 1]);
+    // 데이터가 없을 시 등록, 있을 시 count + 1
+    const sql = `INSERT INTO user_history (word_id, count)
+  VALUES ? ON DUPLICATE KEY UPDATE count = count + 1`;
+
+    await db.query(sql, [values]);
+    res.json({ success: true });
+  } catch (err) {
+    res.json(err);
+  }
+};
