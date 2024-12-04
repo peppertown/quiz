@@ -58,3 +58,26 @@ export const getSentences = async (req, res) => {
     res.json(err);
   }
 };
+
+// 예문 재생성
+export const regenerateSentence = async (req, res) => {
+  try {
+    const { id, word } = req.body;
+    let sql = `SELECT mean FROM words WHERE word = ?`;
+    const [wordMean] = await db.execute(sql, [word]);
+    const target = { word, mean: wordMean[0].mean };
+
+    // 예문 재생성
+    let newSentence = await generateExampleSentence([target]);
+    newSentence = JSON.parse(newSentence[0].result);
+
+    // 재생성된 예문으로 DB 수정
+    sql = `UPDATE sentence SET sentence=?, mean=? WHERE id=?`;
+    const params = [newSentence[0].example, newSentence[0].meaning, id];
+    await db.query(sql, params);
+
+    res.json({ success: true });
+  } catch (err) {
+    res.json(err);
+  }
+};
