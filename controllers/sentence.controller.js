@@ -50,7 +50,7 @@ export const generateSenteces = async (req, res) => {
 export const getSentences = async (req, res) => {
   try {
     const { date } = req.query;
-    const sql = `SELECT word, sentence, mean FROM sentence WHERE date = "${date}"`;
+    const sql = `SELECT id, word, sentence, mean FROM sentence WHERE date = "${date}"`;
 
     const [words] = await db.execute(sql);
     res.json(words);
