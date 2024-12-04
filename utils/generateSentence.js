@@ -16,7 +16,7 @@ export const generateExampleSentence = async (words) => {
     - "example": A single clear example sentence using the word in a meaningful context. In the example sentence, replace the given word with a blank (_____).
     - "meaning": The Korean translation of the example sentence.
 
-    Ensure the output is compact and does not include unnecessary line breaks, indentation, or extra formatting. The JSON should be minified.
+    Ensure the example sentence is grammatically and lexically accurate, and use natural, meaningful contexts only. The output should be compact and must not include unnecessary line breaks, indentation, or extra formatting. The JSON should be minified.
 
   `;
 
