@@ -10,7 +10,8 @@ const openai = new OpenAI({
 export const generateExampleSentence = async (words) => {
   const sentences = [];
 
-  const systemMessage = `
+  try {
+    const systemMessage = `
     For each given word and definition, generate a JSON array where each object contains:
     - "word": The English word.
     - "example": A single clear example sentence using the word in a meaningful context. In the example sentence, replace the given word with a blank (_____).
@@ -20,24 +21,27 @@ export const generateExampleSentence = async (words) => {
 
   `;
 
-  for (const word of words) {
-    const { word: currentWord, definition } = word;
+    for (const word of words) {
+      const { word: currentWord, definition } = word;
 
-    const response = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages: [
-        { role: "system", content: systemMessage },
-        {
-          role: "user",
-          content: `Word: ${currentWord}, Definition: ${definition}`,
-        },
-      ],
-      temperature: 0.7,
-    });
-    sentences.push({
-      result: response.choices[0].message.content,
-    });
+      const response = await openai.chat.completions.create({
+        model: "gpt-3.5-turbo",
+        messages: [
+          { role: "system", content: systemMessage },
+          {
+            role: "user",
+            content: `Word: ${currentWord}, Definition: ${definition}`,
+          },
+        ],
+        temperature: 0.7,
+      });
+      sentences.push({
+        result: response.choices[0].message.content,
+      });
+    }
+
+    return sentences;
+  } catch (err) {
+    console.log(err);
   }
-
-  return sentences;
 };
