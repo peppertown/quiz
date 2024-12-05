@@ -11,3 +11,16 @@ export const getMypage = async (req, res) => {
 
   res.json(result[0]);
 };
+
+// 복습 단어 조회
+export const getWordHistory = async (req, res) => {
+  try {
+    const sql = `SELECT u.count, w.word, w.mean FROM user_history u JOIN words w 
+  ON u.word_id = w.id ORDER BY count DESC`;
+
+    const [history] = await db.execute(sql);
+    res.json(history);
+  } catch (err) {
+    res.json(err);
+  }
+};
