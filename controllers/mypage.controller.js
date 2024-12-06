@@ -2,12 +2,16 @@ import db from "../server.js";
 
 // 마이페이지 조회
 export const getMypage = async (req, res) => {
-  const sql = `SELECT u.user_id, u.nickname, (SELECT COUNT(*) FROM registered_date) AS days,
+  try {
+    const sql = `SELECT u.user_id, u.nickname, (SELECT COUNT(*) FROM registered_date) AS days,
   (SELECT COUNT(*) FROM words) AS words FROM users u`;
-  // 유저 아이디, 닉네임, 총 출석일, 총 학습 단어 수
-  const [result] = await db.execute(sql);
+    // 유저 아이디, 닉네임, 총 출석일, 총 학습 단어 수
+    const [result] = await db.execute(sql);
 
-  res.json(result[0]);
+    res.json(result[0]);
+  } catch (err) {
+    res.json(err);
+  }
 };
 
 // 복습 단어 조회
